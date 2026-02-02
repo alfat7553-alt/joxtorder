@@ -10,7 +10,7 @@
     /* CSS Optimized */
     * {
       box-sizing: border-box;
-      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.15);
     }
 
     html { 
@@ -89,6 +89,13 @@
       transform: scale(1.05);
     }
     
+    .language-toggle:active {
+      background: rgba(0,255,204,0.3) !important;
+      color: #00ffcc !important;
+      transform: scale(0.97) !important;
+      transition: transform 0.1s, background 0.1s !important;
+    }
+    
     @keyframes pulse {
       0% { box-shadow: 0 0 5px #00ffcc; }
       50% { box-shadow: 0 0 15px #00ffcc; }
@@ -138,7 +145,6 @@
       color: #eee;
       cursor: pointer;
       transition: transform 0.3s ease;
-      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.3);
     }
     
     .burger.active {
@@ -163,13 +169,18 @@
       padding: 6px 4px;
       transition: color .2s, transform .2s;
       transform: translateZ(0);
-      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
     }
     
     nav a:hover {
       color: #00ffcc;
       text-shadow: 0 0 8px #00ffcc;
       transform: translateY(-2px);
+    }
+    
+    nav a:active {
+      color: #00ffcc !important;
+      opacity: 1 !important;
+      background: transparent !important;
     }
     
     @media (max-width: 768px) {
@@ -210,12 +221,6 @@
       padding: 30px 15px;
       max-width: 800px;
       margin: auto;
-      animation: fadeInUp 0.6s ease-out;
-    }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     
     h2 {
@@ -250,7 +255,6 @@
       will-change: transform, box-shadow;
       position: relative;
       overflow: hidden;
-      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
     }
     
     .product::before {
@@ -275,7 +279,16 @@
     .product:active {
       transform: translateY(-2px) scale(0.98);
       transition: transform 0.1s;
-      background: rgba(20,20,30,0.95);
+      background: rgba(20,20,30,0.9) !important;
+      color: #f8f8fa !important;
+    }
+    
+    .product:active h3 {
+      color: #00ffcc !important;
+    }
+    
+    .product:active .price {
+      color: #00ffcc !important;
     }
     
     .product:hover::before {
@@ -327,7 +340,6 @@
       overflow: hidden;
       transform: translateZ(0);
       will-change: transform, box-shadow;
-      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.3);
     }
     
     .btn-order:hover { 
@@ -337,42 +349,11 @@
     }
     
     .btn-order:active {
-      transform: scale(0.98);
-      transition: transform 0.1s;
-      background: #00cc7a;
-    }
-    
-    .btn-order::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 5px;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.5);
-      opacity: 0;
-      border-radius: 100%;
-      transform: scale(1, 1) translate(-50%);
-      transform-origin: 50% 50%;
-    }
-    
-    .btn-order:focus:not(:active)::after {
-      animation: ripple 1s ease-out;
-    }
-    
-    @keyframes ripple {
-      0% {
-        transform: scale(0, 0);
-        opacity: 0.5;
-      }
-      20% {
-        transform: scale(25, 25);
-        opacity: 0.3;
-      }
-      100% {
-        opacity: 0;
-        transform: scale(40, 40);
-      }
+      transform: scale(0.97) !important;
+      transition: transform 0.1s !important;
+      background: #00ff99 !important;
+      color: #0a0a0f !important;
+      box-shadow: 0 0 15px #00ff99 !important;
     }
     
     footer {
@@ -398,13 +379,19 @@
       border-radius: 8px;
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       transform: translateZ(0);
-      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
     }
     
     #testimoni a:hover {
       background: rgba(0,255,204,0.2);
       box-shadow: 0 0 12px rgba(0,255,204,0.4);
       transform: translateY(-2px);
+    }
+    
+    #testimoni a:active {
+      color: #00ffcc !important;
+      background: rgba(0,255,204,0.2) !important;
+      transform: scale(0.97) !important;
+      transition: transform 0.1s !important;
     }
     
     /* WhatsApp Link Optimizations */
@@ -414,7 +401,8 @@
     }
     
     a[href*="whatsapp"]:active {
-      transform: scale(0.95);
+      transform: scale(0.97) !important;
+      transition: transform 0.1s !important;
     }
     
     /* Touch device optimizations */
@@ -423,21 +411,30 @@
       .btn-order:active,
       .language-toggle:active,
       nav a:active,
-      a[href*="whatsapp"]:active {
-        color: inherit !important;
-        background: inherit !important;
-        -webkit-tap-highlight-color: rgba(0, 255, 204, 0.3) !important;
+      a[href*="whatsapp"]:active,
+      #testimoni a:active {
+        -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2) !important;
       }
       
-      .product:active,
-      .btn-order:active,
-      a[href*="whatsapp"]:active {
-        transform: scale(0.97) !important;
-        transition: transform 0.1s !important;
+      .product:active h3,
+      .product:active .price {
+        color: #00ffcc !important;
+      }
+      
+      .btn-order:active {
+        color: #0a0a0f !important;
       }
       
       .language-toggle:active {
-        transform: scale(0.95) !important;
+        color: #00ffcc !important;
+      }
+      
+      nav a:active {
+        color: #00ffcc !important;
+      }
+      
+      #testimoni a:active {
+        color: #00ffcc !important;
       }
     }
     
@@ -486,26 +483,54 @@
       opacity: 0.7;
       pointer-events: none;
     }
+
+    /* PERBAIKAN KHUSUS UNTUK TOMBOL DAN LINK */
+    .product,
+    .btn-order,
+    .language-toggle,
+    nav a,
+    a[href*="whatsapp"],
+    #testimoni a {
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
+    }
     
-    /* FIX TOTAL: GARIS KOTAK DI SUDUT + SAAT CLICK */
-.product {
-  border-radius: 12px;
-  background-clip: padding-box;
-  outline: 1px solid transparent;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-tap-highlight-color: transparent; /* anti tap highlight Android */
-}
-
-.product::before {
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.product:active {
-  outline: none !important;
-  box-shadow: 0 0 20px rgba(168,85,247,0.4) !important;
-}
+    /* Pastikan warna teks tetap saat active */
+    .product:active {
+      color: #f8f8fa !important;
+    }
+    
+    .btn-order:active {
+      color: #0a0a0f !important;
+    }
+    
+    .language-toggle:active {
+      color: #00ffcc !important;
+    }
+    
+    nav a:active {
+      color: #00ffcc !important;
+    }
+    
+    #testimoni a:active {
+      color: #00ffcc !important;
+    }
+    
+    /* FIX: Samakan urutan tampilan Order dengan Testimoni */
+    .order {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .order h2 {
+      order: 1;
+      margin-bottom: 15px;
+    }
+    
+    .order .btn-order {
+      order: 2;
+      margin-top: 0;
+      align-self: flex-start;
+    }
   </style>
 </head>
 <body>
@@ -699,12 +724,12 @@
       return `Rp ${price.toLocaleString('id-ID')}`;
     }
 
-    // Optimasi WhatsApp Links
+    // Optimasi WhatsApp Links - SEDERHANA tanpa efek visual
     function enhanceWhatsAppLinks() {
       const waLinks = document.querySelectorAll('[data-wa-link]');
       
       waLinks.forEach(link => {
-        // Tambahkan prefetch untuk WhatsApp
+        // Hanya prefetch, tidak ada efek visual
         link.addEventListener('mouseenter', function() {
           const prefetchLink = document.createElement('link');
           prefetchLink.rel = 'prefetch';
@@ -712,43 +737,20 @@
           document.head.appendChild(prefetchLink);
         }, { once: true });
         
-        // Smooth click effect
+        // Log klik saja, tanpa perubahan visual
         link.addEventListener('click', function(e) {
-          // Beri feedback visual
-          this.style.transform = 'scale(0.95)';
-          this.style.transition = 'transform 0.1s';
-          
-          // Reset setelah 100ms
-          setTimeout(() => {
-            this.style.transform = '';
-          }, 100);
-          
-          // Log klik untuk analytics
           const productName = this.querySelector('h3')?.textContent || 'General';
           console.log('WhatsApp link clicked: ' + productName);
         });
       });
     }
 
-    // Fungsi baru untuk scroll ke target
-    function scrollToTarget(targetElement) {
-      const headerOffset = 80;
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-
-    // Smooth navigation dengan prevent flash
+    // Smooth navigation
     function setupSmoothNavigation() {
       const navLinks = document.querySelectorAll('#nav-links a[href^="#"]');
       
       navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-          e.preventDefault();
           const href = this.getAttribute('href');
           if (href === '#') return;
           
@@ -756,25 +758,23 @@
           const targetElement = document.getElementById(targetId);
           
           if (targetElement) {
+            e.preventDefault();
+            
             // Tutup menu mobile jika terbuka
             const navMenu = document.getElementById('nav-links');
             const burger = document.getElementById('burger');
-            const isMenuActive = navMenu.classList.contains('active');
+            navMenu.classList.remove('active');
+            burger.classList.remove('active');
             
-            if (isMenuActive) {
-              navMenu.classList.remove('active');
-              burger.classList.remove('active');
-              // Tunggu transisi menu selesai baru scroll
-              setTimeout(() => {
-                requestAnimationFrame(() => {
-                  scrollToTarget(targetElement);
-                });
-              }, 400);
-            } else {
-              requestAnimationFrame(() => {
-                scrollToTarget(targetElement);
-              });
-            }
+            // Smooth scroll ke target
+            const headerOffset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
           }
         });
       });
@@ -838,28 +838,12 @@
         burger.classList.toggle('active');
       });
       
-      // Event listener untuk toggle bahasa
+      // Event listener untuk toggle bahasa - SEDERHANA tanpa efek visual
       const langToggle = document.getElementById('lang-toggle');
       langToggle.addEventListener('click', () => {
         const currentLang = localStorage.getItem('language') || 'id';
         const newLang = currentLang === 'id' ? 'en' : 'id';
         setLanguage(newLang);
-        
-        // Feedback visual
-        langToggle.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          langToggle.style.transform = '';
-        }, 150);
-      });
-      
-      // Optimasi scroll untuk navbar
-      window.addEventListener('scroll', () => {
-        const nav = document.querySelector('nav');
-        if (window.pageYOffset > 50) {
-          nav.style.boxShadow = '0 0 20px rgba(0,255,200,0.6)';
-        } else {
-          nav.style.boxShadow = '0 0 15px rgba(0,255,200,0.4)';
-        }
       });
       
       // Preload WhatsApp untuk performa lebih baik
@@ -871,25 +855,8 @@
       }, 1000);
     });
 
-    // Debounce untuk resize event
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      document.body.classList.add('resize-animation-stopper');
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        document.body.classList.remove('resize-animation-stopper');
-      }, 400);
-    });
-
-    // Tambahkan style untuk resize animation stopper
-    const resizeStyle = document.createElement('style');
-    resizeStyle.textContent = `
-      .resize-animation-stopper * {
-        animation: none !important;
-        transition: none !important;
-      }
-    `;
-    document.head.appendChild(resizeStyle);
+    // HAPUS resize event yang menyebabkan kedipan
+    // Tidak perlu menambahkan style untuk resize animation stopper
   </script>
 </body>
 </html>
