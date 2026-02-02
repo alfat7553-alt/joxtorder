@@ -10,7 +10,7 @@
     /* CSS Optimized */
     * {
       box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
     }
 
     html { 
@@ -79,6 +79,7 @@
       animation: pulse 2s infinite;
       transform: translateZ(0);
       will-change: transform, box-shadow;
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.3);
     }
     
     .language-toggle:hover {
@@ -137,6 +138,7 @@
       color: #eee;
       cursor: pointer;
       transition: transform 0.3s ease;
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.3);
     }
     
     .burger.active {
@@ -161,6 +163,7 @@
       padding: 6px 4px;
       transition: color .2s, transform .2s;
       transform: translateZ(0);
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
     }
     
     nav a:hover {
@@ -247,6 +250,7 @@
       will-change: transform, box-shadow;
       position: relative;
       overflow: hidden;
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
     }
     
     .product::before {
@@ -271,6 +275,7 @@
     .product:active {
       transform: translateY(-2px) scale(0.98);
       transition: transform 0.1s;
+      background: rgba(20,20,30,0.95);
     }
     
     .product:hover::before {
@@ -322,6 +327,7 @@
       overflow: hidden;
       transform: translateZ(0);
       will-change: transform, box-shadow;
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.3);
     }
     
     .btn-order:hover { 
@@ -333,6 +339,7 @@
     .btn-order:active {
       transform: scale(0.98);
       transition: transform 0.1s;
+      background: #00cc7a;
     }
     
     .btn-order::after {
@@ -391,6 +398,7 @@
       border-radius: 8px;
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       transform: translateZ(0);
+      -webkit-tap-highlight-color: rgba(0, 255, 204, 0.2);
     }
     
     #testimoni a:hover {
@@ -411,12 +419,14 @@
     
     /* Touch device optimizations */
     @media (hover: none) and (pointer: coarse) {
-      .product:hover,
-      .btn-order:hover,
-      .language-toggle:hover,
-      nav a:hover {
-        transform: none !important;
+      .product:active,
+      .btn-order:active,
+      .language-toggle:active,
+      nav a:active,
+      a[href*="whatsapp"]:active {
+        color: inherit !important;
         background: inherit !important;
+        -webkit-tap-highlight-color: rgba(0, 255, 204, 0.3) !important;
       }
       
       .product:active,
@@ -424,6 +434,10 @@
       a[href*="whatsapp"]:active {
         transform: scale(0.97) !important;
         transition: transform 0.1s !important;
+      }
+      
+      .language-toggle:active {
+        transform: scale(0.95) !important;
       }
     }
     
@@ -472,6 +486,26 @@
       opacity: 0.7;
       pointer-events: none;
     }
+    
+    /* FIX TOTAL: GARIS KOTAK DI SUDUT + SAAT CLICK */
+.product {
+  border-radius: 12px;
+  background-clip: padding-box;
+  outline: 1px solid transparent;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent; /* anti tap highlight Android */
+}
+
+.product::before {
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.product:active {
+  outline: none !important;
+  box-shadow: 0 0 20px rgba(168,85,247,0.4) !important;
+}
   </style>
 </head>
 <body>
@@ -696,12 +730,25 @@
       });
     }
 
-    // Smooth navigation
+    // Fungsi baru untuk scroll ke target
+    function scrollToTarget(targetElement) {
+      const headerOffset = 80;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+
+    // Smooth navigation dengan prevent flash
     function setupSmoothNavigation() {
       const navLinks = document.querySelectorAll('#nav-links a[href^="#"]');
       
       navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
+          e.preventDefault();
           const href = this.getAttribute('href');
           if (href === '#') return;
           
@@ -709,23 +756,25 @@
           const targetElement = document.getElementById(targetId);
           
           if (targetElement) {
-            e.preventDefault();
-            
             // Tutup menu mobile jika terbuka
             const navMenu = document.getElementById('nav-links');
             const burger = document.getElementById('burger');
-            navMenu.classList.remove('active');
-            burger.classList.remove('active');
+            const isMenuActive = navMenu.classList.contains('active');
             
-            // Smooth scroll ke target
-            const headerOffset = 80;
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
+            if (isMenuActive) {
+              navMenu.classList.remove('active');
+              burger.classList.remove('active');
+              // Tunggu transisi menu selesai baru scroll
+              setTimeout(() => {
+                requestAnimationFrame(() => {
+                  scrollToTarget(targetElement);
+                });
+              }, 400);
+            } else {
+              requestAnimationFrame(() => {
+                scrollToTarget(targetElement);
+              });
+            }
           }
         });
       });
