@@ -4,29 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Joxt Xiterz - Produk & Order</title>
+  <link rel="preconnect" href="https://api.whatsapp.com">
+  <link rel="preconnect" href="https://static.whatsapp.net">
   <style>
-    html { scroll-behavior: smooth; }
+    /* CSS Optimized */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html { 
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
       background: #0a0a0f;
       color: #f8f8fa;
       line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
     header {
       text-align: center;
       padding: 40px 20px 20px;
       background: linear-gradient(135deg,#141429,#0a0a0f);
       box-shadow: 0 0 20px rgba(0,255,150,0.4);
       position: relative;
+      animation: fadeIn 0.8s ease-out;
     }
+    
     header img {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       border: 4px solid #00ff99;
       box-shadow: 0 0 20px #00ff99;
+      transform: translateZ(0);
     }
+    
     header h1 {
       margin: 15px 0 5px;
       font-size: 34px;
@@ -34,10 +54,12 @@
       color: #00ffcc;
       text-shadow: 0 0 15px #00ffcc;
     }
+    
     header p {
       color: #bbb;
       font-weight: 600;
     }
+    
     .language-toggle {
       position: absolute;
       top: 20px;
@@ -49,24 +71,34 @@
       padding: 8px 16px;
       border-radius: 10px;
       cursor: pointer;
-      transition: background .3s, transform .3s, box-shadow .3s;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 14px;
       animation: pulse 2s infinite;
+      transform: translateZ(0);
+      will-change: transform, box-shadow;
     }
+    
     .language-toggle:hover {
       background: #00ffcc;
       color: #0a0a0f;
       box-shadow: 0 0 15px #00ffcc;
       transform: scale(1.05);
     }
+    
     @keyframes pulse {
       0% { box-shadow: 0 0 5px #00ffcc; }
       50% { box-shadow: 0 0 15px #00ffcc; }
       100% { box-shadow: 0 0 5px #00ffcc; }
     }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
     nav {
       background: rgba(10,10,15,0.8);
       backdrop-filter: blur(8px);
@@ -75,7 +107,14 @@
       top: 0;
       z-index: 1000;
       box-shadow: 0 0 15px rgba(0,255,200,0.4);
+      animation: slideDown 0.5s ease-out;
     }
+    
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+    
     .nav-container {
       display: flex;
       justify-content: space-between;
@@ -83,11 +122,13 @@
       max-width: 800px;
       margin: 0 auto;
     }
+    
     .logo {
       font-weight: 800;
       font-size: 18px;
       color: #00ffcc;
     }
+    
     .burger {
       display: none;
       font-size: 24px;
@@ -95,7 +136,13 @@
       border: none;
       color: #eee;
       cursor: pointer;
+      transition: transform 0.3s ease;
     }
+    
+    .burger.active {
+      transform: rotate(90deg);
+    }
+    
     nav ul {
       list-style: none;
       margin: 0;
@@ -103,23 +150,30 @@
       display: flex;
       gap: 20px;
     }
+    
     nav li { position: relative; }
+    
     nav a {
       color: #eee;
       text-decoration: none;
       font-weight: 700;
       font-size: 14px;
       padding: 6px 4px;
-      transition: color .2s;
+      transition: color .2s, transform .2s;
+      transform: translateZ(0);
     }
+    
     nav a:hover {
       color: #00ffcc;
       text-shadow: 0 0 8px #00ffcc;
+      transform: translateY(-2px);
     }
+    
     @media (max-width: 768px) {
       .burger {
         display: block;
       }
+      
       nav ul {
         flex-direction: column;
         align-items: center;
@@ -133,12 +187,14 @@
         padding: 0;
         gap: 12px;
         box-shadow: 0 4px 20px rgba(0,255,200,0.2);
-        transition: max-height 0.4s ease, padding 0.4s ease;
+        transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.4s ease;
       }
+      
       nav ul.active {
         max-height: 300px;
         padding: 15px 0;
       }
+      
       .language-toggle {
         top: 10px;
         right: 10px;
@@ -146,11 +202,19 @@
         font-size: 12px;
       }
     }
+    
     section {
       padding: 30px 15px;
       max-width: 800px;
       margin: auto;
+      animation: fadeInUp 0.6s ease-out;
     }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
     h2 {
       font-size: 22px;
       margin-bottom: 15px;
@@ -161,11 +225,13 @@
       font-weight: 800;
       text-shadow: 0 0 10px #a855f7;
     }
+    
     .product-list {
       display: grid;
       grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
       gap: 15px;
     }
+    
     .product {
       display: block;
       background: rgba(20,20,30,0.9);
@@ -173,23 +239,55 @@
       border-radius: 12px;
       text-align: center;
       box-shadow: 0 0 20px rgba(168,85,247,0.4);
-      transition: transform .2s, box-shadow .2s;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       font-weight: 700;
       color: #f8f8fa;
       text-decoration: none;
+      transform: translateZ(0);
+      will-change: transform, box-shadow;
+      position: relative;
+      overflow: hidden;
     }
+    
+    .product::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(0, 255, 204, 0.1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
     .product:hover { 
-      transform: translateY(-4px); 
+      transform: translateY(-6px) scale(1.02); 
       box-shadow: 0 0 25px rgba(0,255,200,0.7);
       color: #00ffcc;
     }
+    
+    .product:active {
+      transform: translateY(-2px) scale(0.98);
+      transition: transform 0.1s;
+    }
+    
+    .product:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
     .price {
       font-weight: 800;
       color: #00ffcc;
       font-size: 16px;
       text-shadow: 0 0 6px #00ffcc;
       margin-top: 8px;
+      position: relative;
+      z-index: 1;
     }
+    
     .note,.payment,.testimoni,.order {
       background: rgba(20,20,30,0.9);
       padding: 20px;
@@ -201,11 +299,13 @@
       margin-left: auto;
       margin-right: auto;
     }
+    
     .note li::before { content:"🎮 "; }
     .payment li::before { content:"💰 "; }
     ul { list-style:none; padding:0; margin:0; }
     li { margin-bottom: 8px; padding: 5px 0; }
     .payment-note { margin-top: 10px; font-size: 14px; color: #bbb; }
+    
     .btn-order {
       display:inline-block;
       margin-top:15px;
@@ -217,13 +317,57 @@
       font-weight:800;
       font-size:16px;
       box-shadow:0 0 15px #00ff99;
-      transition: background .2s, transform .2s;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+      will-change: transform, box-shadow;
     }
+    
     .btn-order:hover { 
       background:#00e68a; 
       transform: scale(1.05);
-      box-shadow:0 0 20px #00ffcc;
+      box-shadow:0 0 25px #00ffcc;
     }
+    
+    .btn-order:active {
+      transform: scale(0.98);
+      transition: transform 0.1s;
+    }
+    
+    .btn-order::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .btn-order:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(40, 40);
+      }
+    }
+    
     footer {
       text-align: center;
       padding: 25px 15px;
@@ -232,7 +376,9 @@
       font-size: 14px;
       color: #bbb;
       box-shadow: 0 0 10px rgba(0,255,150,0.3);
+      animation: fadeIn 0.8s ease-out;
     }
+    
     #exchange-rate { margin-top: 10px; font-size: 12px; }
     
     #testimoni a {
@@ -243,12 +389,61 @@
       padding: 8px 16px;
       background: rgba(0,255,204,0.1);
       border-radius: 8px;
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateZ(0);
     }
     
     #testimoni a:hover {
       background: rgba(0,255,204,0.2);
       box-shadow: 0 0 12px rgba(0,255,204,0.4);
+      transform: translateY(-2px);
+    }
+    
+    /* WhatsApp Link Optimizations */
+    a[href*="whatsapp"] {
+      transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+    
+    a[href*="whatsapp"]:active {
+      transform: scale(0.95);
+    }
+    
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .product:hover,
+      .btn-order:hover,
+      .language-toggle:hover,
+      nav a:hover {
+        transform: none !important;
+        background: inherit !important;
+      }
+      
+      .product:active,
+      .btn-order:active,
+      a[href*="whatsapp"]:active {
+        transform: scale(0.97) !important;
+        transition: transform 0.1s !important;
+      }
+    }
+    
+    /* Performance optimizations */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    
+    /* Better focus styles for accessibility */
+    a:focus,
+    button:focus {
+      outline: 2px solid #00ffcc;
+      outline-offset: 2px;
     }
     
     @media (max-width: 768px) {
@@ -265,12 +460,23 @@
       h2 {
         font-size: 20px;
       }
+      
+      /* Mobile-specific optimizations */
+      .product:hover {
+        transform: translateY(-4px);
+      }
+    }
+    
+    /* Loading state styles */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.jpg" alt="Joxt Xiterz Logo">
+    <img src="logo.jpg" alt="Joxt Xiterz Logo" width="120" height="120" loading="eager">
     <h1 data-lang="header-title">🕹️ Joxt Xiterz</h1>
     <p data-lang="header-desc">🎮 List Produk Terbaik - Android & iOS</p>
     <button class="language-toggle" id="lang-toggle">🇮🇩 ID</button>
@@ -295,20 +501,20 @@
   <section id="android">
     <h2 data-lang="android-title">📱 Produk Android Terpopuler</h2>
     <div class="product-list">
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Drag%20HS" data-lang="product-drag-hs" target="_blank" class="product">🎯 <h3>Drag HS</h3><p class="price" data-price="15000">Rp 15.000</p></a>
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20All%20Tap" data-lang="product-all-tap" target="_blank" class="product">⚡ <h3>All Tap</h3><p class="price" data-price="25000">Rp 25.000</p></a>
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Badan%20HS" data-lang="product-badan-hs" target="_blank" class="product">💥 <h3>Badan HS</h3><p class="price" data-price="35000">Rp 35.000</p></a>
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Panel%20Joxt" data-lang="product-panel-joxt" target="_blank" class="product">🛡️ <h3>Panel Joxt</h3><p class="price" data-price="50000">Rp 50.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Drag%20HS" data-lang="product-drag-hs" target="_blank" class="product" data-wa-link="true">🎯 <h3>Drag HS</h3><p class="price" data-price="15000">Rp 15.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20All%20Tap" data-lang="product-all-tap" target="_blank" class="product" data-wa-link="true">⚡ <h3>All Tap</h3><p class="price" data-price="25000">Rp 25.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Badan%20HS" data-lang="product-badan-hs" target="_blank" class="product" data-wa-link="true">💥 <h3>Badan HS</h3><p class="price" data-price="35000">Rp 35.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Panel%20Joxt" data-lang="product-panel-joxt" target="_blank" class="product" data-wa-link="true">🛡️ <h3>Panel Joxt</h3><p class="price" data-price="50000">Rp 50.000</p></a>
     </div>
   </section>
 
   <section id="ios">
     <h2 data-lang="ios-title">🍏 Produk iPhone / iOS Terbaik</h2>
     <div class="product-list">
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Aim%20Neck" data-lang="product-aim-neck" target="_blank" class="product">🎯 <h3>Aim Neck</h3><p class="price" data-price="35000">Rp 35.000</p></a>
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20All%20Tap%20iOS" data-lang="product-all-tap-ios" target="_blank" class="product">⚡ <h3>All Tap</h3><p class="price" data-price="25000">Rp 25.000</p></a>
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Badan%20HS" data-lang="product-badan-hs-ios" target="_blank" class="product">💥 <h3>Badan HS</h3><p class="price" data-price="50000">Rp 50.000</p></a>
-      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Panel%20iOS" data-lang="product-panel-ios" target="_blank" class="product">🛡️ <h3>Panel iOS</h3><p class="price" data-price="70000">Rp 70.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Aim%20Neck" data-lang="product-aim-neck" target="_blank" class="product" data-wa-link="true">🎯 <h3>Aim Neck</h3><p class="price" data-price="35000">Rp 35.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20All%20Tap%20iOS" data-lang="product-all-tap-ios" target="_blank" class="product" data-wa-link="true">⚡ <h3>All Tap</h3><p class="price" data-price="25000">Rp 25.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Badan%20HS" data-lang="product-badan-hs-ios" target="_blank" class="product" data-wa-link="true">💥 <h3>Badan HS</h3><p class="price" data-price="50000">Rp 50.000</p></a>
+      <a href="https://wa.me/+6288286464154?text=Saya%20mau%20beli%20Panel%20iOS" data-lang="product-panel-ios" target="_blank" class="product" data-wa-link="true">🛡️ <h3>Panel iOS</h3><p class="price" data-price="70000">Rp 70.000</p></a>
     </div>
   </section>
 
@@ -336,12 +542,12 @@
 
   <section class="order" id="order">
     <h2 data-lang="order-title">📩 Order</h2>
-    <a href="https://wa.me/+6288286464154" target="_blank" class="btn-order" data-lang="order-button">💬 Chat via WhatsApp</a>
+    <a href="https://wa.me/+6288286464154" target="_blank" class="btn-order" data-lang="order-button" data-wa-link="true">💬 Chat via WhatsApp</a>
   </section>
 
   <section class="testimoni" id="testimoni">
     <h2 data-lang="testimoni-title">💬 Testimoni</h2>
-    <p><a href="https://whatsapp.com/channel/0029Vb7MsfwI1rcrPCuosn3b" target="_blank" data-lang="testimoni-link">📢 Klik di sini untuk cek testimoni</a></p>
+    <p><a href="https://whatsapp.com/channel/0029Vb7MsfwI1rcrPCuosn3b" target="_blank" data-lang="testimoni-link" data-wa-link="true">📢 Klik di sini untuk cek testimoni</a></p>
   </section>
 
   <footer>
@@ -434,7 +640,7 @@
       ]
     };
 
-    let currentExchangeRate = 15500; // Fallback kurs statis (1 USD = Rp 15.500)
+    let currentExchangeRate = 15500;
 
     // Fungsi untuk fetch kurs real-time
     async function fetchExchangeRate() {
@@ -442,10 +648,8 @@
         const response = await fetch('https://open.er-api.com/v6/latest/USD');
         const data = await response.json();
         if (data.result === 'success') {
-          currentExchangeRate = data.rates.IDR; // Rp per USD
+          currentExchangeRate = data.rates.IDR;
           console.log('Kurs real-time: 1 USD = Rp ' + currentExchangeRate);
-        } else {
-          console.log('Gagal fetch kurs, gunakan fallback');
         }
       } catch (error) {
         console.log('Error fetch kurs: ' + error + '. Gunakan fallback.');
@@ -461,6 +665,72 @@
       return `Rp ${price.toLocaleString('id-ID')}`;
     }
 
+    // Optimasi WhatsApp Links
+    function enhanceWhatsAppLinks() {
+      const waLinks = document.querySelectorAll('[data-wa-link]');
+      
+      waLinks.forEach(link => {
+        // Tambahkan prefetch untuk WhatsApp
+        link.addEventListener('mouseenter', function() {
+          const prefetchLink = document.createElement('link');
+          prefetchLink.rel = 'prefetch';
+          prefetchLink.href = this.href;
+          document.head.appendChild(prefetchLink);
+        }, { once: true });
+        
+        // Smooth click effect
+        link.addEventListener('click', function(e) {
+          // Beri feedback visual
+          this.style.transform = 'scale(0.95)';
+          this.style.transition = 'transform 0.1s';
+          
+          // Reset setelah 100ms
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 100);
+          
+          // Log klik untuk analytics
+          const productName = this.querySelector('h3')?.textContent || 'General';
+          console.log('WhatsApp link clicked: ' + productName);
+        });
+      });
+    }
+
+    // Smooth navigation
+    function setupSmoothNavigation() {
+      const navLinks = document.querySelectorAll('#nav-links a[href^="#"]');
+      
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href === '#') return;
+          
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            e.preventDefault();
+            
+            // Tutup menu mobile jika terbuka
+            const navMenu = document.getElementById('nav-links');
+            const burger = document.getElementById('burger');
+            navMenu.classList.remove('active');
+            burger.classList.remove('active');
+            
+            // Smooth scroll ke target
+            const headerOffset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
     // Fungsi untuk mengganti bahasa
     async function setLanguage(lang) {
       // Fetch kurs baru jika bahasa Inggris
@@ -474,16 +744,23 @@
           const phoneNumber = '+6288286464154';
           const encodedText = encodeURIComponent(translations[lang][key].text);
           element.setAttribute('href', `https://wa.me/${phoneNumber}?text=${encodedText}`);
-          element.querySelector('h3').textContent = translations[lang][key].name;
+          const h3Element = element.querySelector('h3');
+          if (h3Element) {
+            h3Element.textContent = translations[lang][key].name;
+          }
         } else {
-          element.textContent = key === 'exchange-rate' ? translations[lang][key].replace('{rate}', currentExchangeRate.toLocaleString('id-ID')) : translations[lang][key];
+          element.textContent = key === 'exchange-rate' ? 
+            translations[lang][key].replace('{rate}', currentExchangeRate.toLocaleString('id-ID')) : 
+            translations[lang][key];
         }
       });
+      
       // Update harga
       document.querySelectorAll('.price').forEach(element => {
         const price = parseFloat(element.getAttribute('data-price'));
         element.textContent = formatPrice(price, lang);
       });
+      
       // Update metode pembayaran
       document.getElementById('payment-methods').innerHTML = paymentMethods[lang].join('');
       document.querySelector('html').setAttribute('lang', lang);
@@ -491,28 +768,79 @@
       localStorage.setItem('language', lang);
     }
 
-    // Inisialisasi bahasa
-    const savedLang = localStorage.getItem('language') || 'id';
-    setLanguage(savedLang);
-
-    // Event listener untuk toggle bahasa
-    document.getElementById('lang-toggle').addEventListener('click', () => {
-      const currentLang = localStorage.getItem('language') || 'id';
-      const newLang = currentLang === 'id' ? 'en' : 'id';
-      setLanguage(newLang);
-    });
-
-    // Burger menu functionality
-    const burger = document.getElementById('burger');
-    const navLinks = document.getElementById('nav-links');
-    burger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-    document.querySelectorAll('#nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
+    // Inisialisasi saat DOM siap
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inisialisasi bahasa
+      const savedLang = localStorage.getItem('language') || 'id';
+      setLanguage(savedLang);
+      
+      // Setup WhatsApp links
+      enhanceWhatsAppLinks();
+      
+      // Setup smooth navigation
+      setupSmoothNavigation();
+      
+      // Burger menu functionality
+      const burger = document.getElementById('burger');
+      const navLinks = document.getElementById('nav-links');
+      
+      burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('active');
       });
+      
+      // Event listener untuk toggle bahasa
+      const langToggle = document.getElementById('lang-toggle');
+      langToggle.addEventListener('click', () => {
+        const currentLang = localStorage.getItem('language') || 'id';
+        const newLang = currentLang === 'id' ? 'en' : 'id';
+        setLanguage(newLang);
+        
+        // Feedback visual
+        langToggle.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          langToggle.style.transform = '';
+        }, 150);
+      });
+      
+      // Optimasi scroll untuk navbar
+      window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav');
+        if (window.pageYOffset > 50) {
+          nav.style.boxShadow = '0 0 20px rgba(0,255,200,0.6)';
+        } else {
+          nav.style.boxShadow = '0 0 15px rgba(0,255,200,0.4)';
+        }
+      });
+      
+      // Preload WhatsApp untuk performa lebih baik
+      setTimeout(() => {
+        const waPreload = document.createElement('link');
+        waPreload.rel = 'preconnect';
+        waPreload.href = 'https://web.whatsapp.com';
+        document.head.appendChild(waPreload);
+      }, 1000);
     });
+
+    // Debounce untuk resize event
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      document.body.classList.add('resize-animation-stopper');
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        document.body.classList.remove('resize-animation-stopper');
+      }, 400);
+    });
+
+    // Tambahkan style untuk resize animation stopper
+    const resizeStyle = document.createElement('style');
+    resizeStyle.textContent = `
+      .resize-animation-stopper * {
+        animation: none !important;
+        transition: none !important;
+      }
+    `;
+    document.head.appendChild(resizeStyle);
   </script>
 </body>
-  </html>
+</html>
